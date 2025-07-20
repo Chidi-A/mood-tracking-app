@@ -1,0 +1,412 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-family-reddit-sans: 'Reddit Sans', sans-serif;
+
+  /* Neutral Colors */
+  --color-neutral-900: #21214d;
+  --color-neutral-600: #57577b;
+  --color-neutral-300: #9393b7;
+  --color-neutral-200: #cbcdd0;
+  --color-neutral-0: #ffffff;
+
+  /* Blue Colors */
+  --color-blue-700: #2a4cd5;
+  --color-blue-600: #4865db;
+  --color-blue-300: #89caff;
+  --color-blue-200: #c7d3f7;
+  --color-blue-100: #e0e6fa;
+
+  /* Red Colors */
+  --color-red-700: #e60013;
+  --color-red-300: #ff9b99;
+
+  /* Other Colors */
+  --color-indigo-200: #b8b1ff;
+  --color-green-300: #89e780;
+  --color-amber-300: #ffc97c;
+
+  /* Gradient */
+  --gradient-light: linear-gradient(180deg, #f5f5ff 72.99%, #e0e0ff 100%);
+}
+
+/* Reddit Sans Font */
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('./assets/fonts/Reddit_Sans/RedditSans-VariableFont_wght.ttf')
+    format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('./assets/fonts/Reddit_Sans/RedditSans-Italic-VariableFont_wght.ttf')
+    format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Fallback static fonts for better browser support */
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('./assets/fonts/Reddit_Sans/static/RedditSans-Regular.ttf')
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('./assets/fonts/Reddit_Sans/static/RedditSans-Medium.ttf')
+    format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('./assets/fonts/Reddit_Sans/static/RedditSans-SemiBold.ttf')
+    format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reddit Sans';
+  src: url('./assets/fonts/Reddit_Sans/static/RedditSans-Bold.ttf')
+    format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Global app styling */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--gradient-light);
+  background-attachment: fixed;
+  font-family: 'Reddit Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Typography Presets */
+.text-preset-1 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 700;
+  font-size: 3.25rem; /* 52px */
+  line-height: 140%;
+  letter-spacing: -0.125rem; /* -2px */
+}
+
+.text-preset-1-mobile {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 700;
+  font-size: 2.875rem; /* 46px */
+  line-height: 120%;
+  letter-spacing: -0.125rem; /* -2px */
+}
+
+.text-preset-2 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 700;
+  font-size: 2.5rem; /* 40px */
+  line-height: 120%;
+  letter-spacing: -0.01875rem; /* -0.3px */
+}
+
+.text-preset-2-mobile {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 700;
+  font-size: 2rem; /* 32px */
+  line-height: 120%;
+  letter-spacing: -0.01875rem; /* -0.3px */
+}
+
+.text-preset-3 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 700;
+  font-size: 2rem; /* 32px */
+  line-height: 140%;
+  letter-spacing: -0.01875rem; /* -0.3px */
+}
+
+.text-preset-3-mobile {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 700;
+  font-size: 1.75rem; /* 28px */
+  line-height: 130%;
+  letter-spacing: -0.01875rem; /* -0.3px */
+}
+
+.text-preset-4 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 600;
+  font-size: 1.5rem; /* 24px */
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.text-preset-4-regular {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 400;
+  font-size: 1.5rem; /* 24px */
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.text-preset-5 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 600;
+  font-size: 1.25rem; /* 20px */
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.text-preset-6 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 500;
+  font-size: 1.125rem; /* 18px */
+  line-height: 120%;
+  letter-spacing: 0;
+}
+
+.text-preset-6-italic {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.125rem; /* 18px */
+  line-height: 130%;
+  letter-spacing: 0;
+}
+
+.text-preset-6-regular {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 400;
+  font-size: 1.125rem; /* 18px */
+  line-height: 140%;
+  letter-spacing: -0.01875rem; /* -0.3px */
+}
+
+.text-preset-7 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 400;
+  font-size: 0.9375rem; /* 15px */
+  line-height: 140%;
+  letter-spacing: -0.01875rem; /* -0.3px */
+}
+
+.text-preset-8 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 600;
+  font-size: 0.8125rem; /* 13px */
+  line-height: 100%;
+  letter-spacing: 0;
+}
+
+.text-preset-9 {
+  font-family: var(--font-family-reddit-sans);
+  font-weight: 400;
+  font-size: 0.75rem; /* 12px */
+  line-height: 110%;
+  letter-spacing: 0;
+}
+
+/* Utility classes for custom colors */
+.bg-neutral-900 {
+  background-color: var(--color-neutral-900);
+}
+.bg-neutral-600 {
+  background-color: var(--color-neutral-600);
+}
+.bg-neutral-300 {
+  background-color: var(--color-neutral-300);
+}
+.bg-neutral-200 {
+  background-color: var(--color-neutral-200);
+}
+.bg-neutral-0 {
+  background-color: var(--color-neutral-0);
+}
+
+.bg-blue-700 {
+  background-color: var(--color-blue-700);
+}
+.bg-blue-600 {
+  background-color: var(--color-blue-600);
+}
+.bg-blue-300 {
+  background-color: var(--color-blue-300);
+}
+.bg-blue-200 {
+  background-color: var(--color-blue-200);
+}
+.bg-blue-100 {
+  background-color: var(--color-blue-100);
+}
+
+.bg-red-700 {
+  background-color: var(--color-red-700);
+}
+.bg-red-300 {
+  background-color: var(--color-red-300);
+}
+
+.bg-indigo-200 {
+  background-color: var(--color-indigo-200);
+}
+.bg-green-300 {
+  background-color: var(--color-green-300);
+}
+.bg-amber-300 {
+  background-color: var(--color-amber-300);
+}
+
+.text-neutral-900 {
+  color: var(--color-neutral-900);
+}
+.text-neutral-600 {
+  color: var(--color-neutral-600);
+}
+.text-neutral-300 {
+  color: var(--color-neutral-300);
+}
+.text-neutral-200 {
+  color: var(--color-neutral-200);
+}
+.text-neutral-0 {
+  color: var(--color-neutral-0);
+}
+
+.text-blue-700 {
+  color: var(--color-blue-700);
+}
+.text-blue-600 {
+  color: var(--color-blue-600);
+}
+.text-blue-300 {
+  color: var(--color-blue-300);
+}
+.text-blue-200 {
+  color: var(--color-blue-200);
+}
+.text-blue-100 {
+  color: var(--color-blue-100);
+}
+
+.text-red-700 {
+  color: var(--color-red-700);
+}
+.text-red-300 {
+  color: var(--color-red-300);
+}
+
+.text-indigo-200 {
+  color: var(--color-indigo-200);
+}
+.text-green-300 {
+  color: var(--color-green-300);
+}
+.text-amber-300 {
+  color: var(--color-amber-300);
+}
+
+.border-neutral-900 {
+  border-color: var(--color-neutral-900);
+}
+.border-neutral-600 {
+  border-color: var(--color-neutral-600);
+}
+.border-neutral-300 {
+  border-color: var(--color-neutral-300);
+}
+.border-neutral-200 {
+  border-color: var(--color-neutral-200);
+}
+.border-neutral-0 {
+  border-color: var(--color-neutral-0);
+}
+
+.border-blue-700 {
+  border-color: var(--color-blue-700);
+}
+.border-blue-600 {
+  border-color: var(--color-blue-600);
+}
+.border-blue-300 {
+  border-color: var(--color-blue-300);
+}
+.border-blue-200 {
+  border-color: var(--color-blue-200);
+}
+.border-blue-100 {
+  border-color: var(--color-blue-100);
+}
+
+.border-red-700 {
+  border-color: var(--color-red-700);
+}
+.border-red-300 {
+  border-color: var(--color-red-300);
+}
+
+.border-indigo-200 {
+  border-color: var(--color-indigo-200);
+}
+.border-green-300 {
+  border-color: var(--color-green-300);
+}
+.border-amber-300 {
+  border-color: var(--color-amber-300);
+}
+
+/* Gradient utility */
+.bg-gradient-light {
+  background: var(--gradient-light);
+}
+
+/* Font utility */
+.font-reddit-sans {
+  font-family: var(--font-family-reddit-sans);
+}
+
+/* Responsive typography utilities */
+@media (max-width: 768px) {
+  .text-preset-1 {
+    font-size: 2.875rem; /* 46px - mobile size */
+    line-height: 120%;
+  }
+
+  .text-preset-2 {
+    font-size: 2rem; /* 32px - mobile size */
+    line-height: 120%;
+  }
+
+  .text-preset-3 {
+    font-size: 1.75rem; /* 28px - mobile size */
+    line-height: 130%;
+  }
+}
+
+/* Add this to your CSS file */
+.recharts-wrapper:focus,
+.recharts-wrapper *:focus {
+  outline: none !important;
+}
+
+/* Or target the specific container */
+.recharts-responsive-container:focus {
+  outline: none !important;
+}
