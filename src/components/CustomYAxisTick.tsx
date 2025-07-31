@@ -1,4 +1,13 @@
-export const CustomYAxisTick = (props: any) => {
+interface CustomYAxisTickProps {
+  x?: number;
+  y?: number;
+  payload?: {
+    value: number;
+  };
+  [key: string]: unknown;
+}
+
+export const CustomYAxisTick = (props: CustomYAxisTickProps) => {
   const { x, y, payload } = props;
 
   const formatYAxisTick = (value: number) => {
@@ -10,7 +19,7 @@ export const CustomYAxisTick = (props: any) => {
     return '9+ hours';
   };
 
-  const label = formatYAxisTick(payload.value);
+  const label = formatYAxisTick(payload?.value || 0);
 
   if (!label) return null;
 

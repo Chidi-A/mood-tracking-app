@@ -382,6 +382,11 @@ body {
   font-family: var(--font-family-reddit-sans);
 }
 
+/* Height utility */
+.h-38 {
+  height: 9.5rem; /* 152px */
+}
+
 /* Responsive typography utilities */
 @media (max-width: 768px) {
   .text-preset-1 {
