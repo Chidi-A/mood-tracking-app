@@ -4,12 +4,15 @@ import { DashboardSummary } from '../components/DashboardSummary';
 import { LogMoodModal } from '../features/LogMoodModal';
 import type { AppData } from '../index';
 import appData from '../data.json';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { openModal } from '../store/moodFormSlice';
 import type { MoodFormData } from '../features/types';
 
 export const HomePage = () => {
   const dispatch = useAppDispatch();
+  const currentProfile = useAppSelector(
+    (state) => state.profile.currentProfile
+  );
 
   const handleLogMood = () => {
     console.log('🔘 Log Mood button clicked');
