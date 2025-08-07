@@ -1,17 +1,17 @@
 import React from 'react';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { openModal } from '../store/moodFormSlice';
 
-interface GreetingProps {
-  userName: string;
-  // onLogMood: () => void;
-}
-
-export const Greeting: React.FC<GreetingProps> = ({
-  userName = 'Lisa',
-  // onLogMood,
-}) => {
+export const Greeting: React.FC = () => {
   const dispatch = useAppDispatch();
+
+  const currentProfile = useAppSelector(
+    (state) => state.profile.currentProfile
+  );
+
+  const fullName = currentProfile?.name || 'User';
+  const firstName = fullName.split(' ')[0];
+
   const today = new Date();
   const options: Intl.DateTimeFormatOptions = {
     weekday: 'long',
@@ -28,7 +28,7 @@ export const Greeting: React.FC<GreetingProps> = ({
   return (
     <div className="text-center py-16">
       <div className="flex flex-col gap-[0.625rem] items-center mb-12">
-        <h3 className="text-preset-3 text-blue-600">Hello, {userName}!</h3>
+        <h3 className="text-preset-3 text-blue-600">Hello, {firstName}!</h3>
         <h1 className="text-preset-1 text-neutral-900">
           How are you feeling today?
         </h1>

@@ -1,5 +1,9 @@
 import React from 'react';
-import { getSleepText, getTrendIcon, getTrendText } from '../utils/moodUtils';
+import {
+  getAverageSleepText,
+  getSleepTrendText,
+  getTrendIcon,
+} from '../utils/moodUtils';
 
 interface AverageSleepCardProps {
   averageSleep: number;
@@ -29,7 +33,7 @@ export const AverageSleepCard: React.FC<AverageSleepCardProps> = ({
               />
             </span>
             <p className="text-preset-4 text-neutral-0">
-              {getSleepText(averageSleep)}
+              {getAverageSleepText(averageSleep)}
             </p>
           </div>
           <div>
@@ -41,7 +45,7 @@ export const AverageSleepCard: React.FC<AverageSleepCardProps> = ({
                   className="w-4 h-4 text-neutral-0"
                 />
               </span>
-              {getTrendText(sleepTrend)}
+              {getSleepTrendText(sleepTrend)}
             </p>
           </div>
         </div>

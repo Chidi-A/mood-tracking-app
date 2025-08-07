@@ -3,18 +3,23 @@ import type { ChartDataPoint } from '..';
 
 interface CustomTooltipProps {
   active?: boolean;
-  payload?: Array<{ payload: ChartDataPoint }>;
+  payload?: Array<{ payload: ChartDataPoint; value: number; dataKey: string }>;
+  label?: string;
 }
 
 export const CustomTooltip: React.FC<CustomTooltipProps> = ({
   active,
   payload,
 }) => {
-  if (active && payload && payload[0]) {
+  if (active && payload && payload.length > 0) {
     const data = payload[0].payload;
 
+    if (!data) {
+      return null;
+    }
+
     return (
-      <div className="bg-white p-4 border border-gray-200 rounded-[10px] shadow-xl max-w-[175px]">
+      <div className="bg-white p-4 border border-gray-200 rounded-[10px] shadow-xl w-[200px]">
         {/* Mood Section */}
         <div className="mb-3">
           <h4 className="text-preset-8 text-neutral-600 mb-2">Mood</h4>
@@ -37,21 +42,21 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
         {/* Reflection Section */}
         <div className="mb-3">
           <h4 className="text-preset-8 text-neutral-600 mb-2">Reflection</h4>
-          <p className="text-preset-9 text-neutral-900 ">
+          <p className="text-preset-9 text-neutral-900 text-xs leading-relaxed">
             {data.journalEntry || 'No reflection recorded'}
           </p>
         </div>
 
         {/* Tags Section */}
         <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-1">Tags</h4>
+          <h4 className="text-preset-8 text-neutral-600 mb-1">Tags</h4>
           <div className="flex flex-wrap gap-1">
             {data.feelings && data.feelings.length > 0 ? (
-              <span className="text-preset-9 text-neutral-900">
+              <span className="text-preset-9 text-neutral-900 text-xs">
                 {data.feelings.join(', ')}
               </span>
             ) : (
-              <span className="text-sm text-gray-500 italic">No tags</span>
+              <span className="text-xs text-gray-500 italic">No tags</span>
             )}
           </div>
         </div>

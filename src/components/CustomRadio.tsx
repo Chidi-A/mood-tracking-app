@@ -53,6 +53,7 @@ export const CustomRadio: React.FC<CustomRadioProps> = ({
                     checked={isSelected}
                     onChange={() => field.onChange(option.value)}
                     className="sr-only"
+                    readOnly
                   />
                   <div
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${

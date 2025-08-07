@@ -4,6 +4,7 @@ import {
   getMoodText,
   getTrendIcon,
   getTrendText,
+  getAverageMoodText,
 } from '../utils/moodUtils';
 
 interface AverageMoodCardProps {
@@ -34,7 +35,7 @@ export const AverageMoodCard: React.FC<AverageMoodCardProps> = ({
               />
             </span>
             <p className="text-preset-4 text-neutral-900">
-              {getMoodText(averageMood)}
+              {getAverageMoodText(averageMood)}
             </p>
           </div>
           <div>

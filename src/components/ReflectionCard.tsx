@@ -1,12 +1,16 @@
 import React from 'react';
+import { useLatestMoodEntry } from '../hooks/useMoodQueries';
 
-interface ReflectionCardProps {
-  reflection: string;
-}
+export const ReflectionCard: React.FC = () => {
+  const { data: moodData } = useLatestMoodEntry();
 
-export const ReflectionCard: React.FC<ReflectionCardProps> = ({
-  reflection,
-}) => {
+  if (!moodData) {
+    return null;
+  }
+
+  const reflection = moodData.journalEntry;
+  const tags = moodData.feelings;
+
   return (
     <div className="bg-neutral-0 rounded-[16px] p-5 border border-blue-100 flex flex-col justify-between">
       <div>
@@ -26,12 +30,13 @@ export const ReflectionCard: React.FC<ReflectionCardProps> = ({
       </div>
       <div className="flex gap-2">
         <div className="flex gap-3">
-          <span className="text-neutral-600 text-preset-6 italic">
-            #Grateful
-          </span>
-          <span className="text-neutral-600 text-preset-6 italic">
-            #Optimistic
-          </span>
+          {tags.map((tag) => {
+            return (
+              <span key={tag} className="text-neutral-600 text-preset-6 italic">
+                #{tag}
+              </span>
+            );
+          })}
         </div>
       </div>
     </div>

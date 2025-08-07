@@ -33,7 +33,9 @@ export const TrendsChartCard: React.FC<TrendsChartCardProps> = ({
 
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 w-full">
-      <h4 className="text-lg font-bold mb-4">Mood and sleep trends</h4>
+      <h4 className="text-preset-3 text-neutral-900 mb-4">
+        Mood and sleep trends
+      </h4>
 
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -48,10 +50,17 @@ export const TrendsChartCard: React.FC<TrendsChartCardProps> = ({
           />
 
           <XAxis
-            dataKey="date"
+            dataKey="timestamp"
             axisLine={false}
             tickLine={false}
-            tick={<CustomXAxisTick />}
+            tick={<CustomXAxisTick x={0} y={0} />}
+            tickFormatter={(timestamp) => {
+              // Format timestamp to show just the date
+              return new Date(timestamp).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+              });
+            }}
           />
 
           <YAxis

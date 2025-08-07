@@ -43,6 +43,7 @@ const moodFormSlice = createSlice({
     closeModal: (state) => {
       state.isModalOpen = false;
       state.currentStep = 1;
+      // Clear form data when modal closes
       state.formData = initialState.formData;
       state.isDraft = false;
     },

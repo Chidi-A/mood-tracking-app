@@ -22,8 +22,6 @@ export interface UpdateProfileData {
 
 export const profileService = {
   async getProfiles(): Promise<Profile[]> {
-    console.log('🔍 Fetching profiles from Supabase...');
-
     const { data: profiles, error } = await supabase
       .from('profiles')
       .select('*')
@@ -34,7 +32,6 @@ export const profileService = {
       throw new Error(`Failed to fetch profiles: ${error.message}`);
     }
 
-    console.log('🎉 Profiles fetched successfully:', profiles);
     return profiles;
   },
 
@@ -42,8 +39,6 @@ export const profileService = {
     profileData: CreateProfileData | UpdateProfileData,
     id?: string
   ): Promise<Profile> {
-    console.log('Creating/editing profile', { profileData, id });
-
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const hasImagePath =
       profileData.avatar_image?.name?.startsWith?.(supabaseUrl);
@@ -127,15 +122,12 @@ export const profileService = {
           console.error('❌ Storage error:', storageError);
           throw new Error('Profile image could not be uploaded');
         }
-
-        console.log('✅ Image uploaded successfully');
       } catch (uploadError) {
         console.error('❌ Upload error:', uploadError);
         throw uploadError;
       }
     }
 
-    console.log('✅ Profile created/updated successfully:', data);
     return data;
   },
 
@@ -151,8 +143,6 @@ export const profileService = {
   },
 
   async deleteProfile(id: string): Promise<void> {
-    console.log('🗑️ Deleting profile:', id);
-
     // Get profile to check if it has an avatar
     const { data: profile, error: fetchError } = await supabase
       .from('profiles')
@@ -197,7 +187,5 @@ export const profileService = {
         console.warn('⚠️ Error deleting avatar from storage:', storageError);
       }
     }
-
-    console.log('✅ Profile deleted successfully');
   },
 };

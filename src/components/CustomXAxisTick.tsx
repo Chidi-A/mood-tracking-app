@@ -1,10 +1,35 @@
-export const CustomXAxisTick = (props: any) => {
+interface CustomXAxisTickProps {
+  x: number;
+  y: number;
+  payload?: {
+    value: string;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
+
+export const CustomXAxisTick = (props: CustomXAxisTickProps) => {
   const { x, y, payload } = props;
 
-  // Parse the date string (e.g., "Mar 20")
-  const dateParts = payload.value.split(' ');
-  const month = dateParts[0]; // "Mar"
-  const day = dateParts[1]; // "20"
+  let month, day;
+
+  // Check if the value is a timestamp or already formatted date
+  if (payload?.value?.includes('T')) {
+    // It's a timestamp, format it
+    const date = new Date(payload.value);
+    const formatted = date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+    });
+    const dateParts = formatted.split(' ');
+    month = dateParts[0]; // "Aug"
+    day = dateParts[1]; // "7"
+  } else {
+    // It's already a formatted date string (e.g., "Mar 20")
+    const dateParts = payload?.value?.split(' ');
+    month = dateParts?.[0]; // "Mar"
+    day = dateParts?.[1]; // "20"
+  }
 
   return (
     <g transform={`translate(${x},${y})`}>

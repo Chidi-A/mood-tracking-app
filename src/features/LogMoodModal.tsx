@@ -6,11 +6,13 @@ import {
   nextStep,
   updateFormData,
   setSubmitting,
+  setLastSubmittedEntry,
 } from '../store/moodFormSlice';
 import { ProgressIndicator } from '../components/ProgressIndicator';
 import { Step1, Step2, Step3, Step4 } from './steps';
 import type { MoodFormData } from './types';
 import { useCreateMoodEntry } from '../hooks/useMoodQueries';
+import type { MoodEntry } from '../index';
 
 interface LogMoodModalProps {
   onSubmit: (data: MoodFormData) => Promise<void>;
@@ -18,7 +20,7 @@ interface LogMoodModalProps {
 
 export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
   const dispatch = useAppDispatch();
-  const { isModalOpen, currentStep, formData, isSubmitting } = useAppSelector(
+  const { isModalOpen, currentStep, isSubmitting } = useAppSelector(
     (state) => state.moodForm
   );
 
@@ -29,16 +31,34 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
     handleSubmit,
     watch,
     trigger,
+    reset,
+
     formState: { errors },
   } = useForm<MoodFormData>({
-    defaultValues: formData,
-    mode: 'onChange',
+    defaultValues: {
+      mood: undefined,
+      sleepHours: undefined,
+      feelings: [],
+      journalEntry: '',
+    },
+    mode: 'onSubmit',
   });
 
   const watchedMood = watch('mood');
   const watchedSleepHours = watch('sleepHours');
   const watchedFeelings = watch('feelings');
   const watchedJournalEntry = watch('journalEntry');
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      reset({
+        mood: undefined,
+        sleepHours: undefined,
+        feelings: [],
+        journalEntry: '',
+      });
+    }
+  }, [isModalOpen, reset]);
 
   useEffect(() => {
     dispatch(
@@ -57,15 +77,70 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
     dispatch,
   ]);
 
+  useEffect(() => {}, [currentStep, errors, watchedSleepHours]);
+
+  useEffect(() => {
+    const allFieldsComplete =
+      watchedMood &&
+      watchedSleepHours &&
+      watchedFeelings.length > 0 &&
+      watchedJournalEntry;
+
+    if (allFieldsComplete && currentStep === 4) {
+      console.log(
+        'All fields are complete on step 4 - this might trigger auto-submission'
+      );
+    }
+  }, [
+    watchedMood,
+    watchedSleepHours,
+    watchedFeelings,
+    watchedJournalEntry,
+    currentStep,
+  ]);
+
+  useEffect(() => {}, [
+    currentStep,
+    errors,
+    watchedMood,
+    watchedSleepHours,
+    watchedFeelings,
+    watchedJournalEntry,
+  ]);
+
   const handleClose = () => {
     dispatch(closeModal());
   };
+  const getCurrentStepField = () => {
+    switch (currentStep) {
+      case 1:
+        return 'mood';
+      case 2:
+        return 'feelings';
+      case 3:
+        return 'journalEntry';
+      case 4:
+        return 'sleepHours';
+      default:
+        return 'mood';
+    }
+  };
 
   const handleNext = async () => {
+    if (currentStep >= 4) {
+      return;
+    }
+
     const isValid = await trigger(getCurrentStepField());
 
-    if (isValid && canProceed()) {
+    const canProceedResult = canProceed();
+
+    if (isValid && canProceedResult) {
       dispatch(nextStep());
+    } else {
+      console.log(
+        '❌ Cannot proceed - validation failed or conditions not met'
+      );
     }
   };
 
@@ -86,7 +161,15 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
 
   const onFormSubmit = async (data: MoodFormData) => {
     console.log('🚀 Form submission started in LogMoodModal');
+    console.log('📍 Stack trace:');
+    console.trace();
     console.log('Form data:', data);
+
+    // Only allow submission on step 4 and when explicitly triggered
+    if (currentStep !== 4) {
+      console.log('❌ Submission blocked - not on step 4');
+      return;
+    }
 
     try {
       dispatch(setSubmitting(true));
@@ -95,28 +178,21 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
       const result = await createMoodEntry.mutateAsync(data);
       console.log('✅ Supabase submission successful:', result);
 
-      await onSubmit(data);
+      const submittedEntry: MoodEntry = {
+        createdAt: new Date().toISOString(),
+        mood: data.mood!,
+        feelings: data.feelings,
+        journalEntry: data.journalEntry,
+        sleepHours: parseFloat(data.sleepHours!),
+      };
 
+      dispatch(setLastSubmittedEntry(submittedEntry));
+      await onSubmit(data);
       dispatch(closeModal());
     } catch (error) {
       console.error('Error submitting form:', error);
     } finally {
       dispatch(setSubmitting(false));
-    }
-  };
-
-  const getCurrentStepField = () => {
-    switch (currentStep) {
-      case 1:
-        return 'mood';
-      case 2:
-        return 'feelings';
-      case 3:
-        return 'journalEntry';
-      case 4:
-        return 'sleepHours';
-      default:
-        return 'mood';
     }
   };
 
@@ -152,10 +228,21 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
           Mutation Error:{' '}
           {createMoodEntry.error ? createMoodEntry.error.message : 'None'}
           <br />
-          Form Data: {JSON.stringify(formData, null, 2)}
+          Form Data:{' '}
+          {JSON.stringify(
+            {
+              mood: watchedMood,
+              sleepHours: watchedSleepHours,
+              feelings: watchedFeelings,
+              journalEntry: watchedJournalEntry,
+            },
+            null,
+            2
+          )}
         </div>
 
-        <form onSubmit={handleSubmit(onFormSubmit)}>
+        {/* Prevent form from auto-submitting by not using onSubmit */}
+        <div>
           <div className="mb-8">
             <CurrentStep control={control} errors={errors} />
           </div>
@@ -172,7 +259,10 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
                 </button>
               ) : (
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={() => {
+                    handleSubmit(onFormSubmit)();
+                  }}
                   disabled={isSubmitting || createMoodEntry.isPending}
                   className={`w-full px-6 py-3 rounded-lg text-preset-5 transition-colors ${
                     isSubmitting || createMoodEntry.isPending
@@ -187,7 +277,7 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
               )}
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

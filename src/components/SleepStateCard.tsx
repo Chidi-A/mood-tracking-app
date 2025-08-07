@@ -1,13 +1,16 @@
 import React from 'react';
 import { getSleepText } from '../utils/moodUtils';
+import { useLatestMoodEntry } from '../hooks/useMoodQueries';
 
-interface SleepStateCardProps {
-  sleepHours: number;
-}
+export const SleepStateCard: React.FC = () => {
+  const { data: moodData } = useLatestMoodEntry();
 
-export const SleepStateCard: React.FC<SleepStateCardProps> = ({
-  sleepHours,
-}) => {
+  if (!moodData) {
+    return null;
+  }
+
+  const sleepHours = moodData.sleepHours;
+  const sleepText = getSleepText(sleepHours);
   return (
     <div className="bg-neutral-0 rounded-[16px] p-5 border border-blue-100">
       <div className="flex items-center gap-3 mb-4">
@@ -20,9 +23,7 @@ export const SleepStateCard: React.FC<SleepStateCardProps> = ({
         </span>
         <span className="text-neutral-600 text-preset-6">Sleep</span>
       </div>
-      <p className="text-preset-3 text-neutral-900">
-        {getSleepText(sleepHours)}
-      </p>
+      <p className="text-preset-3 text-neutral-900">{sleepText}</p>
     </div>
   );
 };

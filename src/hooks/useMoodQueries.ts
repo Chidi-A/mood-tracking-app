@@ -1,9 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { moodService, type MoodEntry } from '../services/moodService';
+import { moodService } from '../services/moodService';
 import type { MoodFormData } from '../features/types';
 import { useAppSelector } from '../store/hooks';
 
 const MOOD_ENTRIES_KEY = ['moodEntries'] as const;
+const AVERAGE_STATS_KEY = ['averageStats'] as const;
 
 export const useMoodQueries = () => {
   const currentProfile = useAppSelector(
@@ -36,19 +37,79 @@ export const useCreateMoodEntry = () => {
         userId: currentProfile.id,
       });
     },
-    onSuccess: (newEntry) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [...MOOD_ENTRIES_KEY, currentProfile?.id],
       });
-      queryClient.setQueryData(
-        [...MOOD_ENTRIES_KEY, currentProfile?.id],
-        (oldData: MoodEntry[]) => {
-          return oldData ? [newEntry, ...oldData] : [newEntry];
-        }
-      );
+      queryClient.invalidateQueries({
+        queryKey: [...AVERAGE_STATS_KEY, currentProfile?.id],
+      });
     },
     onError: (error) => {
       console.error('Error creating mood entry:', error);
     },
+  });
+};
+
+export const useLatestMoodEntry = () => {
+  const { data: moodEntries, isLoading, error } = useMoodQueries();
+
+  const latestEntry =
+    moodEntries && moodEntries.length > 0 ? moodEntries[0] : null;
+
+  // Convert database format to app format
+  const convertedEntry = latestEntry
+    ? {
+        createdAt: latestEntry.created_at || new Date().toISOString(),
+        mood: latestEntry.mood,
+        feelings: latestEntry.feelings,
+        journalEntry: latestEntry.journal_entry,
+        sleepHours: parseFloat(latestEntry.sleep_hours),
+      }
+    : null;
+
+  return {
+    data: convertedEntry,
+    isLoading,
+    error,
+  };
+};
+
+export const useAllMoodEntries = () => {
+  const { data: moodEntries, isLoading, error } = useMoodQueries();
+
+  // Convert database format to app format for all entries
+  const convertedEntries =
+    moodEntries?.map((entry) => ({
+      createdAt: entry.created_at || new Date().toISOString(),
+      mood: entry.mood,
+      feelings: entry.feelings,
+      journalEntry: entry.journal_entry,
+      sleepHours: parseFloat(entry.sleep_hours),
+    })) || [];
+
+  return {
+    data: convertedEntries,
+    isLoading,
+    error,
+  };
+};
+
+export const useAverageStats = () => {
+  const currentProfile = useAppSelector(
+    (state) => state.profile.currentProfile
+  );
+
+  return useQuery({
+    queryKey: [...AVERAGE_STATS_KEY, currentProfile?.id],
+    queryFn: () => {
+      if (!currentProfile?.id) {
+        throw new Error('No profile selected');
+      }
+      return moodService.calculateAverageStats(currentProfile.id);
+    },
+    enabled: !!currentProfile?.id,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1, // Only retry once on failure
   });
 };

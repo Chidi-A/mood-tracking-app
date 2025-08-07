@@ -12,8 +12,6 @@ export interface QuoteEntry {
 
 export const quoteService = {
   async getMoodQuotes(): Promise<MoodQuotes> {
-    console.log('🔍 Fetching mood quotes from Supabase...');
-
     const { data: quotes, error } = await supabase
       .from('mood_quotes')
       .select('*')
@@ -35,7 +33,6 @@ export const quoteService = {
       moodQuotes[moodLevel].push(quote.quote);
     });
 
-    console.log('🎉 Mood quotes fetched successfully:', moodQuotes);
     return moodQuotes;
   },
 };
