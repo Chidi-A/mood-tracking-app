@@ -145,7 +145,7 @@ export const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           <div className="mb-8">
             <div className="flex items-start gap-4">
               <img
-                src={previewImage || 'src/assets/images/avatar-placeholder.svg'}
+                src={previewImage || '/images/avatar-placeholder.svg'}
                 alt="Profile"
                 className="w-16 h-16 rounded-full object-cover"
               />

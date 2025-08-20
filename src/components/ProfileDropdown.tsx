@@ -65,19 +65,13 @@ export const ProfileDropdown = () => {
           className="flex items-center gap-2 cursor-pointer"
         >
           <img
-            src={
-              currentProfile.avatar_url ||
-              'src/assets/images/avatar-placeholder.svg'
-            }
+            src={currentProfile.avatar_url || '/images/avatar-placeholder.svg'}
             alt={currentProfile.name}
             className="w-10 h-10 rounded-full"
           />
 
           <span>
-            <img
-              src="src/assets/images/icon-dropdown-arrow.svg"
-              alt="dropdown-arrow"
-            />
+            <img src="/images/icon-dropdown-arrow.svg" alt="dropdown-arrow" />
           </span>
         </button>
 
@@ -105,7 +99,7 @@ export const ProfileDropdown = () => {
               >
                 <span>
                   <img
-                    src="src/assets/images/icon-settings.svg"
+                    src="/images/icon-settings.svg"
                     alt="settings"
                     className="w-4 h-4"
                   />
@@ -119,7 +113,7 @@ export const ProfileDropdown = () => {
               >
                 <span>
                   <img
-                    src="src/assets/images/icon-logout.svg"
+                    src="/images/icon-logout.svg"
                     alt="logout"
                     className="w-4 h-4"
                   />
