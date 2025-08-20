@@ -1,50 +1,75 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { PublicRoute } from './components/PublicRoute';
 import { HomePage } from './pages/HomePage';
-import { useEffect } from 'react';
-import { useProfilesQuery } from './hooks/useProfileQueries';
-import { useAppDispatch, useAppSelector } from './store/hooks';
-import { setCurrentProfile } from './store/profileSlice';
+import { SignUpPage } from './pages/SignUpPage';
+import { LoginPage } from './pages/LoginPage';
+import { OnboardingPage } from './pages/Onboarding';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
-  const dispatch = useAppDispatch();
-  const { data: profiles, isLoading, error } = useProfilesQuery();
-  const currentProfile = useAppSelector(
-    (state) => state.profile.currentProfile
-  );
+  const { isAuthenticated, isLoading, isInitialized } = useAuth();
 
-  useEffect(() => {
-    if (profiles && profiles.length > 0 && !currentProfile) {
-      dispatch(setCurrentProfile(profiles[1]));
-    }
-  }, [profiles, currentProfile, dispatch]);
-
-  if (isLoading) {
+  if (!isInitialized || isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div>Loading profile...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div>Error loading profile: {error.message}</div>
-      </div>
-    );
-  }
-
-  if (!currentProfile) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div>No profile found. Please create a profile.</div>
+        <div>Loading...</div>
       </div>
     );
   }
 
   return (
-    <div>
-      <HomePage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Public routes - only accessible when NOT authenticated */}
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute isAuthenticated={isAuthenticated}>
+              <SignUpPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute isAuthenticated={isAuthenticated}>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+
+        {/* Protected routes - only accessible when authenticated */}
+        <Route
+          path="/onboarding"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <OnboardingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch all - redirect based on auth status */}
+        <Route
+          path="*"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/" replace />
+            ) : (
+              <Navigate to="/signup" replace />
+            )
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

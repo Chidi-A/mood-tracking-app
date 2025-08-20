@@ -6,7 +6,7 @@ import type { MoodFormData } from '../features/types';
 
 export const HomePage = () => {
   const handleSubmitMood = async (formData: MoodFormData) => {
-    console.log('📋 Form submitted from HomePage:', formData);
+    console.log('formData', formData);
   };
 
   return (

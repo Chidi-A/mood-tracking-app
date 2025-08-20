@@ -48,7 +48,6 @@ export const profileService = {
 
     // Handle new image upload
     if (profileData.avatar_image && !hasImagePath) {
-      // Generate unique image name
       imageName = `${Math.random()}-${
         profileData.avatar_image.name
       }`.replaceAll('/', '');
@@ -57,58 +56,86 @@ export const profileService = {
 
     let data: Profile | null;
     let error: { message: string } | null;
+    let isCreating = false; // Track if we're creating or updating
 
     if (!id) {
-      // Creating new profile
-      const { name, email, ...rest } = profileData as CreateProfileData;
+      // Creating new profile without specific ID
+      isCreating = true;
+      const { name, email } = profileData as CreateProfileData;
       const result = await supabase
         .from('profiles')
         .insert({
           name,
           email,
           avatar_url: avatarUrl,
-          ...rest,
         })
         .select()
         .single();
       data = result.data;
       error = result.error;
     } else {
-      // Updating existing profile
-      const updateData: Partial<Profile> = {};
-
-      // Add name if provided
-      if (profileData.name) {
-        updateData.name = profileData.name;
-      }
-
-      // Add email if provided
-      if (profileData.email) {
-        updateData.email = profileData.email;
-      }
-
-      // Add avatar_url if we have a new image
-      if (avatarUrl) {
-        updateData.avatar_url = avatarUrl;
-      }
-
-      const result = await supabase
+      // Check if profile exists
+      const { data: existingProfile } = await supabase
         .from('profiles')
-        .update(updateData)
+        .select('id')
         .eq('id', id)
-        .select()
         .single();
-      data = result.data;
-      error = result.error;
+
+      if (!existingProfile) {
+        // Creating new profile with specific ID (for auth users)
+        isCreating = true;
+        const { name, email } = profileData as CreateProfileData;
+        const result = await supabase
+          .from('profiles')
+          .insert({
+            id, // Use the auth user's ID
+            name,
+            email,
+            avatar_url: avatarUrl,
+          })
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      } else {
+        // Updating existing profile
+        isCreating = false;
+        const updateData: Partial<Profile> = {};
+
+        if (profileData.name) {
+          updateData.name = profileData.name;
+        }
+
+        if (profileData.email) {
+          updateData.email = profileData.email;
+        }
+
+        if (avatarUrl) {
+          updateData.avatar_url = avatarUrl;
+        }
+
+        const result = await supabase
+          .from('profiles')
+          .update(updateData)
+          .eq('id', id)
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      }
     }
 
     if (error) {
       console.error('❌ Database error:', error);
-      throw new Error(`Profile could not be ${id ? 'updated' : 'created'}`);
+      throw new Error(
+        `Profile could not be ${isCreating ? 'created' : 'updated'}`
+      );
     }
 
     if (!data) {
-      throw new Error(`Profile could not be ${id ? 'updated' : 'created'}`);
+      throw new Error(
+        `Profile could not be ${isCreating ? 'created' : 'updated'}`
+      );
     }
 
     // Upload image to Supabase Storage if it's a new image

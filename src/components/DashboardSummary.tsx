@@ -27,6 +27,8 @@ export const DashboardSummary: React.FC = () => {
   const isLoading = statsLoading || entriesLoading;
   const error = statsError || entriesError;
 
+  const hasEntries = moodEntries && moodEntries.length > 0;
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -62,13 +64,15 @@ export const DashboardSummary: React.FC = () => {
   return (
     <DashboardGrid>
       {/* First Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 h-[340px]">
-        <HappyStateCard />
-        <div className="grid grid-rows-2 lg:grid-rows-[1fr_1.5fr] gap-5">
-          <SleepStateCard />
-          <ReflectionCard />
+      {hasEntries && (
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:h-[340px]">
+          <HappyStateCard />
+          <div className="grid grid-rows-2 lg:grid-rows-[1fr_1.5fr] gap-5">
+            <SleepStateCard />
+            <ReflectionCard />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Second Row */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8">

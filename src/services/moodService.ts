@@ -86,9 +86,13 @@ export const moodService = {
     const hasPrevious5 = totalEntries >= 10;
 
     if (!hasLast5) {
-      throw new Error(
-        'Insufficient data: Need at least 5 mood entries for average calculation'
-      );
+      return {
+        averageMood: 0,
+        averageSleep: 0,
+        moodTrend: 'same',
+        sleepTrend: 'same',
+        dataAvailable: { hasLast5, hasPrevious5, totalEntries },
+      };
     }
 
     // Current period (last 5 entries)

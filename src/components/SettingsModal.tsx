@@ -75,22 +75,16 @@ export const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
       return;
     }
 
-    console.log('Submitting form data:', data);
-
     try {
       const updateData: UpdateProfileData = {
         name: data.name.trim(), // Trim whitespace
         ...(data.avatar_image && { avatar_image: data.avatar_image }),
       };
 
-      console.log('Update data being sent:', updateData);
-
       const result = await updateProfile.mutateAsync({
         id: currentProfile.id,
         data: updateData,
       });
-
-      console.log('Update successful:', result);
 
       if (result) {
         onClose();
@@ -151,7 +145,7 @@ export const SettingsModal = ({ isOpen, onClose }: SettingsModalProps) => {
           <div className="mb-8">
             <div className="flex items-start gap-4">
               <img
-                src={previewImage || '/avatar-placeholder.svg'}
+                src={previewImage || 'src/assets/images/avatar-placeholder.svg'}
                 alt="Profile"
                 className="w-16 h-16 rounded-full object-cover"
               />

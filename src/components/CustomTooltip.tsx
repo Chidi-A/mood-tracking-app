@@ -3,7 +3,9 @@ import type { ChartDataPoint } from '..';
 
 interface CustomTooltipProps {
   active?: boolean;
-  payload?: Array<{ payload: ChartDataPoint; value: number; dataKey: string }>;
+  payload?: Array<{
+    payload: ChartDataPoint & { hasRealData?: boolean };
+  }>;
   label?: string;
 }
 
@@ -14,7 +16,8 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
   if (active && payload && payload.length > 0) {
     const data = payload[0].payload;
 
-    if (!data) {
+    // Don't show tooltip for placeholder data
+    if (!data || !data.hasRealData) {
       return null;
     }
 

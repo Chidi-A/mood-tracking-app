@@ -203,7 +203,7 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
 
   return (
     <div className="fixed inset-0 bg-neutral-900/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-gradient-light rounded-2xl px-10 py-12 w-[600px] max-h-[90vh] relative overflow-y-auto">
+      <div className="bg-gradient-light rounded-2xl px-5 md:px-10 lg:px-10 py-12 w-[600px] max-h-[90vh] relative overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-start mb-6">
           <div className="w-full">
@@ -220,7 +220,7 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
           </button>
         </div>
 
-        <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded text-sm">
+        {/* <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded text-sm">
           <strong>Debug Info:</strong>
           <br />
           Mutation Loading: {createMoodEntry.isPending ? 'Yes' : 'No'}
@@ -239,7 +239,7 @@ export const LogMoodModal: React.FC<LogMoodModalProps> = ({ onSubmit }) => {
             null,
             2
           )}
-        </div>
+        </div> */}
 
         {/* Prevent form from auto-submitting by not using onSubmit */}
         <div>

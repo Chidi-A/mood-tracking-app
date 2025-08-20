@@ -9,8 +9,6 @@ export interface ProfileUserMapping {
 export const profileUserMappingService = {
   // Get or create a mapping for a profile
   async getOrCreateUserForProfile(profileId: string): Promise<string> {
-    console.log('🔍 Getting or creating user for profile:', profileId);
-
     // Check if we already have a mapping for this profile
     const { data: existingMapping } = await supabase
       .from('profile_user_mappings')
@@ -19,7 +17,6 @@ export const profileUserMappingService = {
       .single();
 
     if (existingMapping) {
-      console.log('✅ Found existing user mapping:', existingMapping.user_id);
       return existingMapping.user_id;
     }
 
@@ -43,7 +40,6 @@ export const profileUserMappingService = {
       );
     }
 
-    console.log('✅ Created mapping successfully:', testUserId);
     return testUserId;
   },
 

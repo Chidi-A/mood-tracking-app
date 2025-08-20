@@ -29,7 +29,7 @@ export const Step4: React.FC<Step4Props> = ({ control, errors }) => (
                 onClick={(e) => {
                   e.preventDefault(); // Prevent any default behavior
                   e.stopPropagation(); // Stop event bubbling
-                  console.log('🔍 Sleep option clicked:', option.value); // Debug log
+                  // Debug log
                   field.onChange(option.value);
                 }}
                 onMouseDown={(e) => {
