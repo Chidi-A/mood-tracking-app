@@ -17,7 +17,7 @@ export const ReflectionCard: React.FC = () => {
         <div className="flex items-center gap-3 mb-4">
           <span className="text-neutral-600 text-lg">
             <img
-              src="/src/assets/images/icon-reflection.svg"
+              src="/images/icon-reflection.svg"
               alt="reflection"
               className="w-[22px] h-[22px]"
             />

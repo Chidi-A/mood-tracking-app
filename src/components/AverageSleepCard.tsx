@@ -20,10 +20,7 @@ export const AverageSleepCard: React.FC<AverageSleepCardProps> = ({
     return (
       <div className="bg-blue-100 overflow-hidden rounded-[20px] p-5 h-[150px] flex flex-col justify-center relative">
         <div className="absolute right-[-10rem] top-1/2 -translate-y-1/2">
-          <img
-            src="/src/assets/images/bg-pattern-averages.svg"
-            alt="trend icon"
-          />
+          <img src="/images/bg-pattern-averages.svg" alt="trend icon" />
         </div>
         <p className="text-preset-4 text-neutral-900 mb-3">
           Not enough data yet!{' '}
@@ -37,17 +34,14 @@ export const AverageSleepCard: React.FC<AverageSleepCardProps> = ({
   return (
     <div className="bg-blue-600 overflow-hidden rounded-[20px] p-5 text-neutral-0 h-[150px] flex items-center justify-center relative">
       <div className="absolute right-[-10rem] top-1/2 -translate-y-1/2">
-        <img
-          src="/src/assets/images/bg-pattern-averages.svg"
-          alt="background pattern"
-        />
+        <img src="/images/bg-pattern-averages.svg" alt="background pattern" />
       </div>
       <div className="flex w-full justify-between">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-4">
             <span>
               <img
-                src="/src/assets/images/sleep-status-icon.svg"
+                src="/images/sleep-status-icon.svg"
                 alt="Average Sleep"
                 className="w-6 h-6 text-neutral-0"
               />

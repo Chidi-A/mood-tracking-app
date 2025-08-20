@@ -135,7 +135,7 @@ export const OnboardingPage: React.FC = () => {
                   />
                 ) : (
                   <img
-                    src="/src/assets/images/avatar-placeholder.svg"
+                    src="/images/avatar-placeholder.svg"
                     alt="Avatar placeholder"
                     className="w-16 h-16"
                   />

@@ -36,11 +36,7 @@ export const HappyStateCard: React.FC = () => {
 
           {/* Quote section - hidden on mobile, shown on desktop with proper spacing */}
           <div className="hidden lg:flex items-start flex-col gap-3 max-w-[246px]">
-            <img
-              src="/src/assets/images/icon-quote.svg"
-              alt="quote"
-              className="w-8 h-8"
-            />
+            <img src="/images/icon-quote.svg" alt="quote" className="w-8 h-8" />
             <p className="text-neutral-900 text-preset-6 italic text-left">
               {quote}
             </p>
@@ -59,7 +55,7 @@ export const HappyStateCard: React.FC = () => {
         {/* Quote section - shown on mobile after icon, hidden on desktop */}
         <div className="flex lg:hidden items-start flex-col gap-3 max-w-[246px] mx-auto order-3">
           <img
-            src="/src/assets/images/icon-quote.svg"
+            src="/images/icon-quote.svg"
             alt="quote"
             className="w-8 h-8 mx-auto"
           />

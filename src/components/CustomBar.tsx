@@ -19,17 +19,17 @@ export const CustomBar: React.FC<CustomBarProps> = (props) => {
   const getMoodIconWhite = (mood: number): string => {
     switch (mood) {
       case 2:
-        return '/src/assets/images/icon-very-happy-white.svg';
+        return '/images/icon-very-happy-white.svg';
       case 1:
-        return '/src/assets/images/icon-happy-white.svg';
+        return '/images/icon-happy-white.svg';
       case 0:
-        return '/src/assets/images/icon-neutral-white.svg';
+        return '/images/icon-neutral-white.svg';
       case -1:
-        return '/src/assets/images/icon-sad-white.svg';
+        return '/images/icon-sad-white.svg';
       case -2:
-        return '/src/assets/images/icon-very-sad-white.svg';
+        return '/images/icon-very-sad-white.svg';
       default:
-        return '/src/assets/images/icon-neutral-white.svg';
+        return '/images/icon-neutral-white.svg';
     }
   };
 

@@ -4,26 +4,26 @@ import { SLEEP_CATEGORIES } from '..';
 export const getMoodIcon = (mood: number): string => {
   switch (mood) {
     case 2:
-      return '/src/assets/images/icon-very-happy-color.svg';
+      return '/images/icon-very-happy-color.svg';
     case 1:
-      return '/src/assets/images/icon-happy-color.svg';
+      return '/images/icon-happy-color.svg';
     case 0:
-      return '/src/assets/images/icon-neutral-color.svg';
+      return '/images/icon-neutral-color.svg';
     case -1:
-      return '/src/assets/images/icon-sad-color.svg';
+      return '/images/icon-sad-color.svg';
     case -2:
-      return '/src/assets/images/icon-very-sad-color.svg';
+      return '/images/icon-very-sad-color.svg';
     default:
-      return '/src/assets/images/icon-neutral-color.svg';
+      return '/images/icon-neutral-color.svg';
   }
 };
 
 export const getAverageMoodIcon = (mood: number): string => {
-  if (mood >= 1.5) return '/src/assets/images/icon-very-happy-white.svg';
-  if (mood >= 0.5) return '/src/assets/images/icon-happy-white.svg';
-  if (mood >= -0.5) return '/src/assets/images/icon-neutral-white.svg';
-  if (mood >= -1.5) return '/src/assets/images/icon-sad-white.svg';
-  return '/src/assets/images/icon-very-sad-white.svg';
+  if (mood >= 1.5) return '/images/icon-very-happy-white.svg';
+  if (mood >= 0.5) return '/images/icon-happy-white.svg';
+  if (mood >= -0.5) return '/images/icon-neutral-white.svg';
+  if (mood >= -1.5) return '/images/icon-sad-white.svg';
+  return '/images/icon-very-sad-white.svg';
 };
 
 export const getMoodText = (mood: number): string => {
@@ -62,11 +62,11 @@ export const getSleepText = (hours: number): string => {
 export const getTrendIcon = (trend: string): string => {
   switch (trend) {
     case 'increase':
-      return '/src/assets/images/icon-trend-increase.svg';
+      return '/images/icon-trend-increase.svg';
     case 'decrease':
-      return '/src/assets/images/icon-trend-decrease.svg';
+      return '/images/icon-trend-decrease.svg';
     default:
-      return '/src/assets/images/icon-trend-same.svg';
+      return '/images/icon-trend-same.svg';
   }
 };
 

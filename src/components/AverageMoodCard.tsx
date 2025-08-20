@@ -22,10 +22,7 @@ export const AverageMoodCard: React.FC<AverageMoodCardProps> = ({
     return (
       <div className="bg-blue-100 overflow-hidden rounded-[20px] p-5 h-[150px] flex flex-col justify-center relative">
         <div className="absolute right-[-10rem] top-1/2 -translate-y-1/2">
-          <img
-            src="/src/assets/images/bg-pattern-averages.svg"
-            alt="trend icon"
-          />
+          <img src="/images/bg-pattern-averages.svg" alt="trend icon" />
         </div>
         <p className="text-preset-4 text-neutral-900 mb-3">Keep tracking! </p>
         <p className="text-preset-7 text-neutral-900">
@@ -37,10 +34,7 @@ export const AverageMoodCard: React.FC<AverageMoodCardProps> = ({
   return (
     <div className="bg-blue-300 overflow-hidden rounded-[20px] p-5 text-neutral-900 h-[150px] flex items-center justify-center relative">
       <div className="absolute right-[-10rem] top-1/2 -translate-y-1/2">
-        <img
-          src="/src/assets/images/bg-pattern-averages.svg"
-          alt="trend icon"
-        />
+        <img src="/images/bg-pattern-averages.svg" alt="trend icon" />
       </div>
       <div className="flex  w-full justify-between">
         <div className="flex flex-col gap-3">

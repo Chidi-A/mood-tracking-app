@@ -30,7 +30,7 @@ export const CustomYAxisTick = (props: CustomYAxisTickProps) => {
         y={-6}
         width={10}
         height={10}
-        href="/src/assets/images/sleep-bar-icon.svg"
+        href="/images/sleep-bar-icon.svg"
         aria-label="sleep icon"
       />
 

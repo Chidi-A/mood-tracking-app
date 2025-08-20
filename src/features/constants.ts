@@ -8,27 +8,27 @@ export const MOOD_OPTIONS: {
   {
     value: 2,
     label: 'Very Happy',
-    emoji: '/src/assets/images/icon-very-happy-color.svg',
+    emoji: '/images/icon-very-happy-color.svg',
   },
   {
     value: 1,
     label: 'Happy',
-    emoji: '/src/assets/images/icon-happy-color.svg',
+    emoji: '/images/icon-happy-color.svg',
   },
   {
     value: 0,
     label: 'Neutral',
-    emoji: '/src/assets/images/icon-neutral-color.svg',
+    emoji: '/images/icon-neutral-color.svg',
   },
   {
     value: -1,
     label: 'Sad',
-    emoji: '/src/assets/images/icon-sad-color.svg',
+    emoji: '/images/icon-sad-color.svg',
   },
   {
     value: -2,
     label: 'Very Sad',
-    emoji: '/src/assets/images/icon-very-sad-color.svg',
+    emoji: '/images/icon-very-sad-color.svg',
   },
 ];
 

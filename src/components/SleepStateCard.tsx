@@ -16,7 +16,7 @@ export const SleepStateCard: React.FC = () => {
       <div className="flex items-center gap-3 mb-4">
         <span className="text-blue-600 text-lg">
           <img
-            src="/src/assets/images/icon-sleep.svg"
+            src="/images/icon-sleep.svg"
             alt="Sleep"
             className="w-[22px] h-[22px]"
           />
