@@ -1,69 +1,251 @@
-# React + TypeScript + Vite
+# 🌟 Mood Tracking App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive mood and wellness tracking application built with React, TypeScript, and Supabase. Track your daily moods, sleep patterns, and personal reflections with beautiful visualizations and insights.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-19.1.0-blue.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)
+![Supabase](https://img.shields.io/badge/Supabase-2.52.1-green.svg)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1.11-blue.svg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+### 🎭 Mood Tracking
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **5-level mood scale**: Very Sad, Sad, Neutral, Happy, Very Happy
+- **Visual mood icons** with color-coded indicators
+- **Daily mood logging** with timestamp tracking
+- **Mood trend visualization** with interactive charts
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 😴 Sleep Monitoring
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Sleep hours tracking** with categorization
+- **Sleep pattern analysis** and trends
+- **Visual sleep indicators** and progress tracking
+- **Sleep quality insights** and averages
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 📝 Personal Reflection
+
+- **Journal entries** for daily thoughts and experiences
+- **Feeling tags** to categorize emotions
+- **Reflection prompts** and guided journaling
+- **Personal growth tracking**
+
+### 📊 Analytics & Insights
+
+- **Interactive trend charts** showing mood and sleep patterns
+- **Average calculations** for mood and sleep over time
+- **Visual progress indicators** and statistics
+- **Responsive charts** that work on all devices
+
+### 👤 User Management
+
+- **Secure authentication** with Supabase Auth
+- **User profiles** with customizable avatars
+- **Onboarding flow** for new users
+- **Settings management** and profile updates
+
+### 🎨 User Experience
+
+- **Responsive design** that works on desktop, tablet, and mobile
+- **Modern UI** with Tailwind CSS
+- **Smooth animations** and transitions
+- **Accessible design** following best practices
+
+## 🚀 Tech Stack
+
+### Frontend
+
+- **React 19.1.0** - Modern React with latest features
+- **TypeScript 5.8.3** - Type-safe development
+- **Vite 7.0.4** - Fast build tool and dev server
+- **Tailwind CSS 4.1.11** - Utility-first CSS framework
+
+### State Management
+
+- **Redux Toolkit 2.8.2** - Predictable state container
+- **React Query 5.83.0** - Server state management
+- **React Hook Form 7.60.0** - Form state management
+
+### Backend & Database
+
+- **Supabase 2.52.1** - Backend-as-a-Service
+- **PostgreSQL** - Relational database
+- **Supabase Auth** - User authentication
+- **Supabase Storage** - File storage for avatars
+
+### Visualization
+
+- **Recharts 3.1.0** - Composable charting library
+- **Custom chart components** for mood and sleep data
+
+### Routing
+
+- **React Router 7.8.0** - Client-side routing
+- **Protected routes** - Authentication-based access control
+
+## 📦 Installation
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Supabase account and project
+
+### Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone [your-repo-url]
+   cd mood-tracking-app
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Environment setup**
+   Create a `.env.local` file in the root directory:
+
+   ```env
+   VITE_SUPABASE_URL=your_supabase_project_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **Database setup**
+   Set up your Supabase database with the required tables:
+
+   - `profiles` - User profile information
+   - `mood_entries` - Daily mood and sleep data
+   - `quotes` - Inspirational quotes (optional)
+
+5. **Start development server**
+
+   ```bash
+   npm run dev
+   ```
+
+6. **Open in browser**
+   Navigate to `http://localhost:5173`
+
+## 🏗️ Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── AverageMoodCard.tsx
+│   ├── TrendsChartCard.tsx
+│   ├── Header.tsx
+│   └── ...
+├── features/           # Feature-specific components
+│   ├── LogMoodModal.tsx
+│   ├── steps/
+│   └── types.ts
+├── hooks/              # Custom React hooks
+│   ├── useAuth.ts
+│   ├── useMoodQueries.ts
+│   └── ...
+├── pages/              # Page components
+│   ├── HomePage.tsx
+│   ├── LoginPage.tsx
+│   └── ...
+├── services/           # API and business logic
+│   ├── authService.ts
+│   ├── moodService.ts
+│   └── ...
+├── store/              # Redux store configuration
+│   ├── store.ts
+│   ├── authSlice.ts
+│   └── ...
+├── utils/              # Utility functions
+└── assets/            # Static assets
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This comprehensive README covers all the key aspects of your mood tracking app, including:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Clear feature overview** with emojis for visual appeal
+- **Complete tech stack** with version numbers
+- **Step-by-step installation** instructions
+- **Project structure** explanation
+- **Usage guidelines** for users
+- **Development information** for contributors
+- **Responsive design** details
+- **Authentication flow** explanation
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The README is professional, informative, and user-friendly, making it easy for both users and developers to understand and work with your app.
+
+## 🎯 Usage
+
+### Getting Started
+
+1. **Sign up** for a new account or **log in** with existing credentials
+2. **Complete onboarding** to set up your profile
+3. **Log your first mood** using the "Log mood" button
+4. **Track your progress** on the dashboard
+
+### Daily Mood Logging
+
+1. Click the **"Log mood"** button on the dashboard
+2. **Select your mood** from the 5-level scale
+3. **Enter sleep hours** for the previous night
+4. **Add feeling tags** that describe your emotions
+5. **Write a journal entry** (optional)
+6. **Submit** to save your entry
+
+### Viewing Insights
+
+- **Dashboard** shows your latest mood and sleep averages
+- **Trends chart** displays mood and sleep patterns over time
+- **Statistics cards** show progress and insights
+- **Profile settings** allow customization
+
+## 🔧 Scripts
+
+```bash
+# Development
+npm run dev          # Start development server
+
+# Building
+npm run build        # Build for production
+npm run preview      # Preview production build
+
+# Code Quality
+npm run lint         # Run ESLint
 ```
+
+## 🔐 Authentication Flow
+
+1. **Sign Up**: Create account with email/password
+2. **Email Verification**: Verify email address (if enabled)
+3. **Onboarding**: Complete profile setup
+4. **Dashboard Access**: Full app functionality
+5. **Profile Management**: Update settings and preferences
+
+## 📱 Responsive Design
+
+The app is fully responsive and optimized for:
+
+- **Desktop** (1024px+): Full dashboard layout
+- **Tablet** (768px-1023px): Adapted layout with touch support
+- **Mobile** (320px-767px): Mobile-first design with touch interactions
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -am 'Add new feature'`
+4. Push to the branch: `git push origin feature/new-feature`
+5. Submit a pull request
+
+## 🙏 Acknowledgments
+
+- **Frontend Mentor** for the design inspiration
+- **Supabase** for the excellent backend services
+- **Recharts** for the beautiful chart components
+- **Tailwind CSS** for the utility-first styling approach
+
+---
+
+**Happy mood tracking! 🌈**
